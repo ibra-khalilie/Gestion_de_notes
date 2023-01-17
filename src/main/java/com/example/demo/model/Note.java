@@ -1,8 +1,12 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
 public class Note {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -20,6 +24,9 @@ public class Note {
 
     @Column(name = "moyenne")
     private String moyenne;
+
+    @Column(name = "id_utilisateur")
+    private int id_utilisateur;
 
 
 }

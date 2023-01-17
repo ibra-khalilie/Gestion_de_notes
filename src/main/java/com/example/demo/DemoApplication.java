@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.example.demo.model.Note;
 import com.example.demo.model.Utilisateur;
 import com.example.demo.repositories.NoteRepository;
 import com.example.demo.repositories.UtilisateurRepository;
@@ -49,6 +50,8 @@ public class DemoApplication implements CommandLineRunner {
         System.out.println("veuiller saisir votre mot de passe\n");
         String password  = scanner.nextLine();
         Map<String,Integer> res = connexion(username,password);
+        saisirNote();
+
 
 
     }
@@ -206,12 +209,36 @@ public class DemoApplication implements CommandLineRunner {
 
 
 
-    public  void SaisirNote(){
+    public void saisirNote(){
+        Utilisateur utilisateur = new Utilisateur();
+        utilisateur = utilisateurRepository.findById(1).get();
+        System.out.println("================="+utilisateur.getRole());
+            //si admin
+            if (utilisateur.getRole() == 1) {
+                Scanner in = new Scanner(System.in);
+                System.out.println("Veuillez saisir votre notre note\n");
+                String note = in.nextLine();
+                System.out.println("Veuillez saisir le commentaire\n");
+                String commentaire = in.nextLine();
+                System.out.println("Veuillez saisir la matière\n");
+                String matiere = in.nextLine();
 
+                Note note1 = new Note();
+                note1.setNote(note);
+                note1.setCommentaire(commentaire);
+                note1.setMatiere(matiere);
 
+                noteRepository.save(note1);
 
+            }
+            else{
+                System.out.println("Vous n'etes pas autorisé à saisir des notes");
+
+        }
 
     }
+
+
 
 
 

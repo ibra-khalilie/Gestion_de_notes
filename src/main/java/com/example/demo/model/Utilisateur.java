@@ -24,4 +24,6 @@ public class Utilisateur {
     @Column(name = "role")
     private int role;
 
+
+
 }
