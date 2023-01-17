@@ -8,7 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.Scanner;
+import java.util.*;
 
 @SpringBootApplication
 public class DemoApplication implements CommandLineRunner {
@@ -26,9 +26,9 @@ public class DemoApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        System.out.println("==========================================");
-        System.out.println("=             Gestion de notes           =");
-        System.out.println("==========================================");
+    Menu();
+
+
 
     }
 
@@ -40,7 +40,39 @@ public class DemoApplication implements CommandLineRunner {
      */
     public void Menu(){
 
+        System.out.println("==========================================");
+        System.out.println("=             Gestion de notes           =");
+        System.out.println("==========================================");
+        System.out.println("veuiller saisir votre nom utilsateur\n");
+        Scanner scanner  = new Scanner(System.in);
+        String username  = scanner.nextLine();
+        System.out.println("veuiller saisir votre mot de passe\n");
+        String password  = scanner.nextLine();
+        Map<String,Integer> res = connexion(username,password);
+
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -109,8 +141,23 @@ public class DemoApplication implements CommandLineRunner {
      *
      * @return le role de l'utilisateur qui s'est connécté
      */
-    public  int Connexion(String user, String password){
-        return 0;
+    public Map<String,Integer> connexion(String user, String password) {
+        Map<String, Integer> roleUser = new HashMap<>();
+        List<Utilisateur> utilisateurs = new ArrayList<>();
+        Utilisateur userN = utilisateurRepository.findUtilisateurByUsername(user);
+        if (userN != null) {
+            if (userN.getPassword().equals(password)) {
+                System.out.println("Connexion réussi avec succès");
+                roleUser.put(userN.getUsername(), userN.getRole());
+            } else {
+                System.out.println("Identifiant incorretes");
+            }
+            ;
+        } else {
+            System.out.println("indentifiant incorrect");
+        }
+
+    return roleUser;
 
     }
 
